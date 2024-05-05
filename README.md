@@ -7,8 +7,6 @@ Welcome to the Expense Tracker App repository! This project aims to provide a si
 - **Expense Logging**: Easily add expenses with details such as amount, category, and notes.
 - **Statistical Analysis**: Gain insights into your spending habits with detailed charts and graphs.
 - **Budget Management**: Set budget limits and receive notifications to stay on track.
-- **Customizable Categories**: Tailor expense categories to suit your needs.
-- **Secure**: Your financial data is encrypted and protected.
 
 ## Usage
 
