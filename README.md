@@ -19,10 +19,6 @@ Welcome to the ExpenseMate repository! This project aims to provide a simple and
 
 We welcome contributions from the community! If you have any ideas for improvement or would like to report a bug, please open an issue or submit a pull request.
 
-## License
-
-This project is licensed under the [MIT License](LICENSE).
-
 ## Contact
 
 For questions or inquiries, feel free to contact us at kcpersonalacc@gmail.com.
