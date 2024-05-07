@@ -1,4 +1,6 @@
-# ExpenseMate an Expense Tracker App
+# Still in APP DEVELOPMENT
+
+## ExpenseMate an Expense Tracker App
 
 Welcome to the ExpenseMate repository! This project aims to provide a simple and efficient solution for tracking expenses and gaining insights into your financial habits.
 
