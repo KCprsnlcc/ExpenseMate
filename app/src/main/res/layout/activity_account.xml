@@ -5,51 +5,6 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".Account">
-    <ToggleButton
-        android:id="@+id/togglePassword"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginEnd="8dp"
-        android:layout_marginRight="8dp"
-        android:background="@null"
-        android:button="@drawable/ic_password_visibility"
-        android:checked="false"
-        app:layout_constraintBottom_toBottomOf="@+id/editText4"
-        app:layout_constraintEnd_toEndOf="@+id/editText4"
-        app:layout_constraintTop_toTopOf="@+id/editText4" />
-
-    <TextView
-        android:id="@+id/textView16"
-        android:layout_width="65dp"
-        android:layout_height="50dp"
-        android:layout_marginStart="36dp"
-        android:layout_marginLeft="36dp"
-        android:layout_marginTop="80dp"
-        android:gravity="center"
-        android:text="Password"
-        android:textColor="#000000"
-        android:textSize="14dp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView14" />
-
-    <EditText
-        android:id="@+id/editText4"
-        android:layout_width="276dp"
-        android:layout_height="50dp"
-        android:layout_marginTop="80dp"
-        android:layout_marginEnd="36dp"
-        android:layout_marginRight="36dp"
-        android:background="@null"
-        android:ems="10"
-        android:inputType="textPersonName"
-        android:paddingLeft="10sp"
-        android:text="********"
-        android:textSize="12dp"
-        android:textStyle="bold"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="1.0"
-        app:layout_constraintStart_toEndOf="@+id/textView15"
-        app:layout_constraintTop_toBottomOf="@+id/editText" />
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/constraintLayout"
@@ -116,6 +71,33 @@
             app:layout_constraintTop_toTopOf="parent"
             app:srcCompat="@drawable/dd" />
 
+        <ImageView
+            android:id="@+id/imageView7"
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:layout_marginTop="40dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.498"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:srcCompat="?android:attr/textSelectHandle" />
+
+        <TextView
+            android:id="@+id/textView12"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="24dp"
+            android:text="Account name"
+            android:textColor="#FFFFFF"
+            android:textSize="18sp"
+            android:textStyle="bold"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.498"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/imageView7"
+            app:layout_constraintVertical_bias="1.0" />
+
     </androidx.constraintlayout.widget.ConstraintLayout>
 
     <EditText
@@ -130,7 +112,6 @@
         android:inputType="textPersonName"
         android:paddingLeft="10sp"
         android:text="Mark Gumban"
-        android:textSize="12dp"
         android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
@@ -146,7 +127,6 @@
         android:layout_marginTop="32dp"
         android:gravity="center"
         android:text="Name"
-        android:textSize="14dp"
         android:textColor="#000000"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/constraintLayout2" />
@@ -160,7 +140,6 @@
         android:layout_marginTop="16dp"
         android:gravity="center"
         android:text="Email"
-        android:textSize="14dp"
         android:textColor="#000000"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView14" />
@@ -177,7 +156,7 @@
         android:inputType="textPersonName"
         android:paddingLeft="10sp"
         android:text="markgumban@gmail.com"
-        android:textSize="12dp"
+        android:textSize="14sp"
         android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/textView15"
@@ -189,7 +168,7 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="40dp"
         android:layout_marginLeft="40dp"
-        android:layout_marginTop="112dp"
+        android:layout_marginTop="56dp"
         android:layout_marginEnd="40dp"
         android:layout_marginRight="40dp"
         android:backgroundTint="#041562"
@@ -217,7 +196,7 @@
         android:textSize="16sp"
         android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/button" />
 

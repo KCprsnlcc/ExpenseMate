@@ -13,12 +13,14 @@ import com.github.mikephil.charting.charts.BarChart;
 import com.github.mikephil.charting.charts.PieChart;
 import com.github.mikephil.charting.components.Legend;
 import com.github.mikephil.charting.components.LegendEntry;
+import com.github.mikephil.charting.components.XAxis;
 import com.github.mikephil.charting.data.BarData;
 import com.github.mikephil.charting.data.BarDataSet;
 import com.github.mikephil.charting.data.BarEntry;
 import com.github.mikephil.charting.data.PieData;
 import com.github.mikephil.charting.data.PieDataSet;
 import com.github.mikephil.charting.data.PieEntry;
+import com.github.mikephil.charting.formatter.IndexAxisValueFormatter;
 import com.github.mikephil.charting.utils.ColorTemplate;
 
 import org.json.JSONArray;
@@ -32,6 +34,7 @@ import java.io.InputStreamReader;
 import java.io.OutputStream;
 import java.net.HttpURLConnection;
 import java.net.URL;
+import java.net.URLEncoder;
 import java.util.ArrayList;
 
 public class Statistics extends AppCompatActivity {
@@ -47,17 +50,7 @@ public class Statistics extends AppCompatActivity {
             email = bundle.getString("email");
             type = bundle.getString("type");
         }
-        BarChart barChart = findViewById(R.id.barChart);
-        ArrayList<BarEntry> barDatas = new ArrayList<>();
-        for (int i=1; i<10; i++){
-            float value = (float) (i*10.0);
-            BarEntry barData = new BarEntry(i, value);
-            barDatas.add(barData);
-        }
-        BarDataSet barDataSet = new BarDataSet(barDatas, "Expenses");
-        barDataSet.setColors(ColorTemplate.PASTEL_COLORS);
-        barDataSet.setDrawValues(false);
-        barChart.setData(new BarData(barDataSet));
+        barChartDatas();
         pieChartDatas();
 
         ImageButton aButton = findViewById(R.id.accountButton);
@@ -89,28 +82,25 @@ public class Statistics extends AppCompatActivity {
             }
         });
     }
-    public void pieChartDatas(){
+
+    public void barChartDatas() {
         Thread thread = new Thread(new Runnable() {
             @Override
             public void run() {
                 HttpURLConnection urlConnection = null;
                 try {
-                    // Create URL for fetching data
-                    URL url = new URL("http://10.0.2.2/synthegratech/fetchcategories.php");
+                    URL url = new URL("http://10.0.2.2/synthegratech/fetchexpenses.php");
                     urlConnection = (HttpURLConnection) url.openConnection();
                     urlConnection.setRequestMethod("POST");
                     urlConnection.setDoOutput(true);
-                    int[] colors = {Color.parseColor("#0F4C75"), Color.parseColor("#525CEB"), Color.parseColor("#F4D160"), Color.parseColor("#FBEEAC")};
-                    PieChart pieChart = findViewById(R.id.pieChart);
-                    // Prepare request body
-                    String requestBody = "email=" + email;
 
-                    // Write request body to output stream
+                    String postData = "email=" + URLEncoder.encode(email, "UTF-8");
+
                     OutputStream outputStream = urlConnection.getOutputStream();
-                    outputStream.write(requestBody.getBytes());
+                    outputStream.write(postData.getBytes());
+                    outputStream.flush();
                     outputStream.close();
 
-                    // Read response from input stream
                     InputStream inputStream = urlConnection.getInputStream();
                     BufferedReader reader = new BufferedReader(new InputStreamReader(inputStream));
                     StringBuilder response = new StringBuilder();
@@ -121,38 +111,42 @@ public class Statistics extends AppCompatActivity {
                     reader.close();
                     inputStream.close();
 
-                    // Process response data
                     JSONArray jsonArray = new JSONArray(response.toString());
-                    ArrayList<PieEntry> pieDatas = new ArrayList<>();
+                    ArrayList<BarEntry> barDatas = new ArrayList<>();
+                    ArrayList<String> weeks = new ArrayList<>();
                     for (int i = 0; i < jsonArray.length(); i++) {
                         JSONObject jsonObject = jsonArray.getJSONObject(i);
-                        String category = jsonObject.getString("category");
-                        int count = jsonObject.getInt("count");
-                        pieDatas.add(new PieEntry(count, category));
+                        float totalAmount = (float) jsonObject.getDouble("total_amount");
+                        String startDate = jsonObject.getString("start_date");
+                        String endDate = jsonObject.getString("end_date");
+                        String weekRange = "Week " + (i);
+                        barDatas.add(new BarEntry(i+1, totalAmount));
+                        weeks.add(weekRange);
                     }
 
-                    // Update pie chart with fetched data
-                    PieDataSet pieDataSet = new PieDataSet(pieDatas, "");
-                    pieDataSet.setColors(colors);
-                    Legend legend = pieChart.getLegend();
-                    pieDataSet.setDrawValues(false);
-                    PieData pieData = new PieData(pieDataSet);
-                    pieChart.setData(pieData);
-                    pieChart.getLegend().setEnabled(true);
+                    runOnUiThread(new Runnable() {
+                        @Override
+                        public void run() {
+                            BarChart barChart = findViewById(R.id.barChart);
+                            BarDataSet barDataSet = new BarDataSet(barDatas, "Expenses");
+                            barDataSet.setColors(ColorTemplate.PASTEL_COLORS);
+                            barDataSet.setValueTextSize(12f);
+                            barDataSet.setDrawValues(true);
+                            BarData barData = new BarData(barDataSet);
+                            barChart.setData(barData);
 
-                    // Update legend
-                    LegendEntry[] legendEntries = new LegendEntry[pieDatas.size()];
-                    for (int i = 0; i < pieDatas.size(); i++) {
-                        PieEntry entry = pieDatas.get(i);
-                        legendEntries[i] = new LegendEntry(entry.getLabel(), Legend.LegendForm.DEFAULT, Float.NaN, Float.NaN, null, colors[i]);
-                    }
-
-                    legend.setCustom(legendEntries);
-                    legend.setTextSize(16f);
+                            XAxis xAxis = barChart.getXAxis();
+                            xAxis.setValueFormatter(new IndexAxisValueFormatter(weeks));
+                            xAxis.setTextSize(12f);
+                            barChart.getDescription().setEnabled(false);
+                            Legend legend = barChart.getLegend();
+                            legend.setEnabled(false);
+                            barChart.invalidate();
+                        }
+                    });
                 } catch (IOException | JSONException e) {
                     e.printStackTrace();
-                    Log.e("Fetch Categories Error", "Failed to fetch categories: " + e.getMessage());
-                    // Handle error
+                    Log.e("Fetch Expenses Error", "Failed to fetch expenses: " + e.getMessage());
                 } finally {
                     if (urlConnection != null) {
                         urlConnection.disconnect();
@@ -162,4 +156,77 @@ public class Statistics extends AppCompatActivity {
         });
         thread.start();
     }
+
+    public void pieChartDatas() {
+        Thread thread = new Thread(new Runnable() {
+            @Override
+            public void run() {
+                HttpURLConnection urlConnection = null;
+                try {
+                    URL url = new URL("http://10.0.2.2/synthegratech/fetchcategories.php");
+                    urlConnection = (HttpURLConnection) url.openConnection();
+                    urlConnection.setRequestMethod("POST");
+                    urlConnection.setDoOutput(true);
+                    int[] colors = {Color.parseColor("#0F4C75"), Color.parseColor("#525CEB"), Color.parseColor("#F4D160"), Color.parseColor("#FBEEAC")};
+                    PieChart pieChart = findViewById(R.id.pieChart);
+
+                    String requestBody = "email=" + email;
+                    OutputStream outputStream = urlConnection.getOutputStream();
+                    outputStream.write(requestBody.getBytes());
+                    outputStream.close();
+                    InputStream inputStream = urlConnection.getInputStream();
+                    BufferedReader reader = new BufferedReader(new InputStreamReader(inputStream));
+                    StringBuilder response = new StringBuilder();
+                    String line;
+                    while ((line = reader.readLine()) != null) {
+                        response.append(line);
+                    }
+                    reader.close();
+                    inputStream.close();
+
+                    JSONArray jsonArray = new JSONArray(response.toString());
+                    ArrayList<PieEntry> pieDatas = new ArrayList<>();
+                    ArrayList<String> legendEntries = new ArrayList<>();
+
+                    for (int i = 0; i < jsonArray.length(); i++) {
+                        JSONObject jsonObject = jsonArray.getJSONObject(i);
+                        String category = jsonObject.getString("category");
+                        int count = jsonObject.getInt("count");
+                        String percentage = jsonObject.getString("percentage") + "%";
+                        pieDatas.add(new PieEntry(count,percentage));
+                        legendEntries.add(category);
+                    }
+
+                    PieDataSet pieDataSet = new PieDataSet(pieDatas, "");
+                    pieDataSet.setColors(colors);
+                    pieDataSet.setDrawValues(false);
+                    PieData pieData = new PieData(pieDataSet);
+                    pieChart.setData(pieData);
+
+                    pieChart.getDescription().setEnabled(false);
+                    Legend legend = pieChart.getLegend();
+                    legend.setCustom(getLegendEntries(legendEntries, colors)); // Set custom legend entries
+                    legend.setTextSize(14f);
+                } catch (IOException | JSONException e) {
+                    e.printStackTrace();
+                    Log.e("Fetch Categories Error", "Failed to fetch categories: " + e.getMessage());
+                } finally {
+                    if (urlConnection != null) {
+                        urlConnection.disconnect();
+                    }
+                }
+            }
+        });
+        thread.start();
+    }
+
+    private LegendEntry[] getLegendEntries(ArrayList<String> categories, int[] colors) {
+        LegendEntry[] legendEntries = new LegendEntry[categories.size()];
+        for (int i = 0; i < categories.size(); i++) {
+            String category = categories.get(i);
+            legendEntries[i] = new LegendEntry(category, Legend.LegendForm.DEFAULT, Float.NaN, Float.NaN, null, colors[i]);
+        }
+        return legendEntries;
+    }
+
 }

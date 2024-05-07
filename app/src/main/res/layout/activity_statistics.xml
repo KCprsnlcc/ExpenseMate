@@ -11,6 +11,7 @@
         android:id="@+id/barChart"
         android:layout_width="0dp"
         android:layout_height="263dp"
+        android:layout_marginTop="12dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
@@ -19,7 +20,7 @@
     <com.github.mikephil.charting.charts.PieChart
         android:id="@+id/pieChart"
         android:layout_width="0dp"
-        android:layout_height="325dp"
+        android:layout_height="315dp"
         android:layout_marginTop="80dp"
         app:layout_constraintBottom_toTopOf="@+id/constraintLayout"
         app:layout_constraintEnd_toEndOf="parent"

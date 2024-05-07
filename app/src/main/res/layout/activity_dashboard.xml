@@ -67,7 +67,7 @@
     <androidx.cardview.widget.CardView
         android:id="@+id/cardView"
         android:layout_width="0dp"
-        android:layout_height="450dp"
+        android:layout_height="320dp"
         android:paddingLeft="-50dp"
         android:paddingRight="-50dp"
         app:cardElevation="0dp"
@@ -81,8 +81,7 @@
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:background="#041562"
-            >
+            android:background="#041562">
 
             <Button
                 android:id="@+id/a"
@@ -105,30 +104,11 @@
                 app:layout_constraintTop_toTopOf="parent" />
 
             <Button
-                android:id="@+id/b"
-                style="@style/Widget.AppCompat.Button"
-                android:layout_width="300dp"
-                android:layout_height="60dp"
-                android:layout_marginTop="32dp"
-                android:background="@drawable/button_rounded_corner"
-                android:drawableLeft="@drawable/description48"
-                android:paddingLeft="45sp"
-                android:paddingRight="45sp"
-                android:text="Description"
-                android:textAllCaps="false"
-                android:textColor="#041562"
-                android:textSize="20dp"
-                android:textStyle="bold"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/a" />
-
-            <Button
                 android:id="@+id/c"
                 style="@style/Widget.AppCompat.Button"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="60dp"
+                android:layout_marginTop="24dp"
                 android:background="@drawable/button_rounded_corner"
                 android:paddingLeft="45sp"
                 android:paddingRight="45sp"
@@ -139,7 +119,7 @@
                 android:textStyle="bold"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/b" />
+                app:layout_constraintTop_toBottomOf="@+id/a" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
     </androidx.cardview.widget.CardView>
@@ -151,7 +131,7 @@
         android:layout_marginStart="24dp"
         android:layout_marginLeft="24dp"
         android:layout_marginTop="56dp"
-        android:text="Budget ammount?"
+        android:text="Budget amount?"
         android:textColor="#041562"
         android:textSize="20dp"
         android:textStyle="bold"
@@ -186,7 +166,6 @@
         android:ems="10"
         android:inputType="number"
         android:paddingLeft="5sp"
-        android:text="0"
         android:textSize="40dp"
         android:textStyle="bold"
         app:layout_constraintBottom_toTopOf="@+id/cardView"
@@ -195,5 +174,90 @@
         app:layout_constraintStart_toEndOf="@+id/textView18"
         app:layout_constraintTop_toBottomOf="@+id/textView17"
         app:layout_constraintVertical_bias="0.0" />
+
+    <Button
+        android:id="@+id/button50"
+        android:layout_width="100dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="44dp"
+        android:layout_marginLeft="44dp"
+        android:layout_marginTop="12dp"
+        android:background="#041562"
+        android:text="50"
+        android:textColor="#FFFFFF"
+        android:textSize="18dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/ammountField" />
+
+    <Button
+        android:id="@+id/button100"
+        android:layout_width="100dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="12dp"
+        android:background="#041562"
+        android:text="100"
+        android:textColor="#FFFFFF"
+        android:textSize="18dp"
+        app:layout_constraintEnd_toStartOf="@+id/button150"
+        app:layout_constraintHorizontal_bias="0.478"
+        app:layout_constraintStart_toEndOf="@+id/button50"
+        app:layout_constraintTop_toBottomOf="@+id/ammountField" />
+
+    <Button
+        android:id="@+id/button150"
+        android:layout_width="100dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="12dp"
+        android:layout_marginEnd="44dp"
+        android:layout_marginRight="44dp"
+        android:background="#041562"
+        android:text="150"
+        android:textColor="#FFFFFF"
+        android:textSize="18dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/ammountField" />
+
+    <Button
+        android:id="@+id/button250"
+        android:layout_width="100dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="44dp"
+        android:layout_marginLeft="44dp"
+        android:layout_marginTop="12dp"
+        android:background="#041562"
+        android:text="250"
+        android:textColor="#FFFFFF"
+        android:textSize="18dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/button50" />
+
+    <Button
+        android:id="@+id/button300"
+        android:layout_width="100dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="12dp"
+        android:background="#041562"
+        android:text="300"
+        android:textColor="#FFFFFF"
+        android:textSize="18dp"
+        app:layout_constraintEnd_toStartOf="@+id/setButton"
+        app:layout_constraintHorizontal_bias="0.478"
+        app:layout_constraintStart_toEndOf="@+id/button250"
+        app:layout_constraintTop_toBottomOf="@+id/button100" />
+
+    <Button
+        android:id="@+id/setButton"
+        android:layout_width="100dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="12dp"
+        android:layout_marginEnd="44dp"
+        android:layout_marginRight="44dp"
+        android:background="#2543CC"
+        android:text="SET"
+        android:textColor="#FFFFFF"
+        android:textSize="18dp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/button150" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
