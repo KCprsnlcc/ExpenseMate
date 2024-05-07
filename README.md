@@ -1,4 +1,4 @@
-# Still in APP DEVELOPMENT
+# IN DEVELOPMENT PROCESS
 
 ## ExpenseMate an Expense Tracker App
 
