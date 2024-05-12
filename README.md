@@ -6,7 +6,7 @@ Welcome to the ExpenseMate repository! This project aims to provide a simple and
 
 ## Features
 
-- **Expense Logging**: Easily add expenses with details such as amount, category, and notes.
+- **Expense Logging**: Easily add expenses with details such as amount, and category.
 - **Statistical Analysis**: Gain insights into your spending habits with detailed charts and graphs.
 - **Budget Management**: Set budget limits and receive notifications to stay on track.
 
