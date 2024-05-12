@@ -23,6 +23,7 @@
         <activity android:name=".ForgotPassword" />
         <activity android:name=".RegisterActivity" />
         <activity android:name=".Splash"
+            android:exported="true"
             android:noHistory="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
