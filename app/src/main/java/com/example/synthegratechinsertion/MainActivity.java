@@ -41,7 +41,7 @@ public class MainActivity extends AppCompatActivity {
                     public void run() {
                         HttpURLConnection urlConnection = null;
                         try {
-                            URL url = new URL("http://10.0.2.2/synthegratech/login.php");
+                            URL url = new URL("http://capstone2024.online/snt/login.php");
                             urlConnection = (HttpURLConnection) url.openConnection();
                             urlConnection.setRequestMethod("POST");
                             urlConnection.setDoOutput(true);
@@ -72,7 +72,7 @@ public class MainActivity extends AppCompatActivity {
                                             bundle.putString("name", name);
                                             bundle.putString("email", email);
                                             bundle.putString("type", type);
-                                            Intent intent = new Intent(MainActivity.this, Dashboard.class).addFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
+                                            Intent intent = new Intent(MainActivity.this, Statistics.class).addFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
                                             overridePendingTransition(0, 0);
                                             intent.putExtras(bundle);
                                             startActivity(intent);

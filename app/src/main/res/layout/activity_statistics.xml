@@ -20,7 +20,7 @@
     <com.github.mikephil.charting.charts.PieChart
         android:id="@+id/pieChart"
         android:layout_width="0dp"
-        android:layout_height="315dp"
+        android:layout_height="310dp"
         android:layout_marginTop="80dp"
         app:layout_constraintBottom_toTopOf="@+id/constraintLayout"
         app:layout_constraintEnd_toEndOf="parent"
@@ -47,7 +47,7 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintVertical_bias="0.0"
-            app:srcCompat="@drawable/home48" />
+            app:srcCompat="@drawable/home48s" />
 
         <ImageButton
             android:id="@+id/statButton"
@@ -59,7 +59,7 @@
             app:layout_constraintStart_toEndOf="@+id/homeButton"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintVertical_bias="0.0"
-            app:srcCompat="@drawable/stat48s" />
+            app:srcCompat="@drawable/stat48" />
 
         <ImageButton
             android:id="@+id/accountButton"

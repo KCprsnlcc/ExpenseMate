@@ -14,13 +14,18 @@ import com.github.mikephil.charting.charts.PieChart;
 import com.github.mikephil.charting.components.Legend;
 import com.github.mikephil.charting.components.LegendEntry;
 import com.github.mikephil.charting.components.XAxis;
+import com.github.mikephil.charting.components.YAxis;
 import com.github.mikephil.charting.data.BarData;
 import com.github.mikephil.charting.data.BarDataSet;
 import com.github.mikephil.charting.data.BarEntry;
+import com.github.mikephil.charting.data.Entry;
 import com.github.mikephil.charting.data.PieData;
 import com.github.mikephil.charting.data.PieDataSet;
 import com.github.mikephil.charting.data.PieEntry;
 import com.github.mikephil.charting.formatter.IndexAxisValueFormatter;
+import com.github.mikephil.charting.formatter.ValueFormatter;
+import com.github.mikephil.charting.highlight.Highlight;
+import com.github.mikephil.charting.listener.OnChartValueSelectedListener;
 import com.github.mikephil.charting.utils.ColorTemplate;
 
 import org.json.JSONArray;
@@ -54,7 +59,7 @@ public class Statistics extends AppCompatActivity {
         pieChartDatas();
 
         ImageButton aButton = findViewById(R.id.accountButton);
-        ImageButton hButton = findViewById(R.id.homeButton);
+        ImageButton sButton = findViewById(R.id.statButton);
         aButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -68,7 +73,7 @@ public class Statistics extends AppCompatActivity {
                 overridePendingTransition(0, 0);
             }
         });
-        hButton.setOnClickListener(new View.OnClickListener() {
+        sButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Bundle bundle1 = new Bundle();
@@ -89,7 +94,7 @@ public class Statistics extends AppCompatActivity {
             public void run() {
                 HttpURLConnection urlConnection = null;
                 try {
-                    URL url = new URL("http://10.0.2.2/synthegratech/fetchexpenses.php");
+                    URL url = new URL("http://capstone2024.online/snt/fetchexpenses.php");
                     urlConnection = (HttpURLConnection) url.openConnection();
                     urlConnection.setRequestMethod("POST");
                     urlConnection.setDoOutput(true);
@@ -117,10 +122,8 @@ public class Statistics extends AppCompatActivity {
                     for (int i = 0; i < jsonArray.length(); i++) {
                         JSONObject jsonObject = jsonArray.getJSONObject(i);
                         float totalAmount = (float) jsonObject.getDouble("total_amount");
-                        String startDate = jsonObject.getString("start_date");
-                        String endDate = jsonObject.getString("end_date");
-                        String weekRange = "Week " + (i);
-                        barDatas.add(new BarEntry(i+1, totalAmount));
+                        String weekRange = "Week " + (i + 1); // Fix: Adjust week numbering
+                        barDatas.add(new BarEntry(i + 1, totalAmount));
                         weeks.add(weekRange);
                     }
 
@@ -135,12 +138,50 @@ public class Statistics extends AppCompatActivity {
                             BarData barData = new BarData(barDataSet);
                             barChart.setData(barData);
 
+// Customizing X-axis
                             XAxis xAxis = barChart.getXAxis();
                             xAxis.setValueFormatter(new IndexAxisValueFormatter(weeks));
+                            xAxis.setPosition(XAxis.XAxisPosition.BOTTOM); // Set position to bottom
                             xAxis.setTextSize(12f);
-                            barChart.getDescription().setEnabled(false);
-                            Legend legend = barChart.getLegend();
-                            legend.setEnabled(false);
+                            xAxis.setGranularity(1f);
+                            xAxis.setLabelCount(weeks.size()); // Set the number of labels to be displayed
+                            xAxis.setDrawGridLines(false); // Hide grid lines
+                            xAxis.setDrawAxisLine(false); // Hide axis line
+                            xAxis.setCenterAxisLabels(true); // Center labels inside bars
+                            xAxis.setLabelRotationAngle(0); // Set initial rotation angle to 0
+
+// Set an OnChartValueSelectedListener to dynamically adjust label rotation
+                            barChart.setOnChartValueSelectedListener(new OnChartValueSelectedListener() {
+                                @Override
+                                public void onValueSelected(Entry e, Highlight h) {
+                                    // Calculate the width of the bars
+                                    float barWidth = barChart.getBarData().getBarWidth();
+                                    // Calculate the space available for the label
+                                    float spaceAvailable = barWidth / 2f;
+                                    // Get the index of the selected entry
+                                    int index = (int) e.getX();
+                                    // Get the position of the selected entry
+                                    float xPos = h.getXPx();
+                                    // Check if there's enough space on the left side for the label
+                                    if (xPos < spaceAvailable) {
+                                        // Set label rotation angle to 90 for left side
+                                        xAxis.setLabelRotationAngle(90);
+                                    } else {
+                                        // Set label rotation angle to -90 for right side
+                                        xAxis.setLabelRotationAngle(-90);
+                                    }
+                                    // Refresh the chart
+                                    barChart.invalidate();
+                                }
+
+                                @Override
+                                public void onNothingSelected() {
+                                    // Reset label rotation angle when nothing is selected
+                                    xAxis.setLabelRotationAngle(0);
+                                    // Refresh the chart
+                                    barChart.invalidate();
+                                }
+                            });
                             barChart.invalidate();
                         }
                     });
@@ -163,7 +204,7 @@ public class Statistics extends AppCompatActivity {
             public void run() {
                 HttpURLConnection urlConnection = null;
                 try {
-                    URL url = new URL("http://10.0.2.2/synthegratech/fetchcategories.php");
+                    URL url = new URL("http://capstone2024.online/snt/fetchcategories.php");
                     urlConnection = (HttpURLConnection) url.openConnection();
                     urlConnection.setRequestMethod("POST");
                     urlConnection.setDoOutput(true);
@@ -206,7 +247,8 @@ public class Statistics extends AppCompatActivity {
                     pieChart.getDescription().setEnabled(false);
                     Legend legend = pieChart.getLegend();
                     legend.setCustom(getLegendEntries(legendEntries, colors)); // Set custom legend entries
-                    legend.setTextSize(14f);
+                    legend.setTextSize(12f);
+                    pieChart.invalidate();
                 } catch (IOException | JSONException e) {
                     e.printStackTrace();
                     Log.e("Fetch Categories Error", "Failed to fetch categories: " + e.getMessage());

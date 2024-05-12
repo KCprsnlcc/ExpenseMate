@@ -35,10 +35,9 @@ public class Account extends AppCompatActivity {
             type = bundle.getString("type");
         }
         Button deleteButton = findViewById(R.id.button2);
-        TextView nameView = findViewById(R.id.textView12);
+        Button logoutButton = findViewById(R.id.button);
         EditText nameField = findViewById(R.id.editText);
         EditText emailField = findViewById(R.id.editText3);
-        nameView.setText(name);
         nameField.setText(name);
         emailField.setText(email);
         ImageButton dButton = findViewById(R.id.homeButton);
@@ -50,7 +49,7 @@ public class Account extends AppCompatActivity {
                 bundle.putString("name", name);
                 bundle.putString("email", email);
                 bundle.putString("type", type);
-                Intent intent = new Intent(Account.this, Dashboard.class).addFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
+                Intent intent = new Intent(Account.this, Statistics.class).addFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
                 intent.putExtras(bundle);
                 startActivity(intent);
                 overridePendingTransition(0, 0);
@@ -63,10 +62,18 @@ public class Account extends AppCompatActivity {
                 bundle.putString("name", name);
                 bundle.putString("email", email);
                 bundle.putString("type", type);
-                Intent intent = new Intent(Account.this, Statistics.class).addFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
+                Intent intent = new Intent(Account.this, Dashboard.class).addFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
                 intent.putExtras(bundle);
                 startActivity(intent);
                 overridePendingTransition(0, 0);
+            }
+        });
+        logoutButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(Account.this, MainActivity.class);
+                intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                startActivity(intent);
             }
         });
         deleteButton.setOnClickListener(new View.OnClickListener() {
@@ -84,7 +91,7 @@ public class Account extends AppCompatActivity {
                             public void run() {
                                 HttpURLConnection urlConnection = null;
                                 try {
-                                    URL url = new URL("http://10.0.2.2/synthegratech/deleteaccount.php");
+                                    URL url = new URL("http://capstone2024.online/snt/deleteaccount.php");
                                     urlConnection = (HttpURLConnection) url.openConnection();
                                     urlConnection.setRequestMethod("POST");
                                     urlConnection.setDoOutput(true);

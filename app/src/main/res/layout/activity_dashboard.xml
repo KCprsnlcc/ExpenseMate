@@ -25,7 +25,7 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintVertical_bias="0.0"
-            app:srcCompat="@drawable/home48s" />
+            app:srcCompat="@drawable/home48" />
 
         <ImageButton
             android:id="@+id/statButton"
@@ -37,7 +37,7 @@
             app:layout_constraintStart_toEndOf="@+id/homeButton"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintVertical_bias="0.0"
-            app:srcCompat="@drawable/stat48" />
+            app:srcCompat="@drawable/stat48s" />
 
         <ImageButton
             android:id="@+id/accountButton"
@@ -112,11 +112,12 @@
                 android:background="@drawable/button_rounded_corner"
                 android:paddingLeft="45sp"
                 android:paddingRight="45sp"
-                android:text="Continue"
+                android:text="Add"
                 android:textAllCaps="false"
                 android:textColor="#041562"
                 android:textSize="20dp"
                 android:textStyle="bold"
+                android:visibility="invisible"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/a" />
@@ -155,7 +156,7 @@
         app:layout_constraintVertical_bias="0.0" />
 
     <EditText
-        android:id="@+id/ammountField"
+        android:id="@+id/amountField"
         style="@style/Widget.AppCompat.Light.AutoCompleteTextView"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
@@ -163,17 +164,16 @@
         android:layout_marginEnd="24dp"
         android:layout_marginRight="24dp"
         android:background="@null"
+        android:text="0"
         android:ems="10"
         android:inputType="number"
         android:paddingLeft="5sp"
         android:textSize="40dp"
         android:textStyle="bold"
-        app:layout_constraintBottom_toTopOf="@+id/cardView"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toEndOf="@+id/textView18"
-        app:layout_constraintTop_toBottomOf="@+id/textView17"
-        app:layout_constraintVertical_bias="0.0" />
+        app:layout_constraintTop_toBottomOf="@+id/textView17" />
 
     <Button
         android:id="@+id/button50"
@@ -187,7 +187,7 @@
         android:textColor="#FFFFFF"
         android:textSize="18dp"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/ammountField" />
+        app:layout_constraintTop_toBottomOf="@+id/amountField" />
 
     <Button
         android:id="@+id/button100"
@@ -201,7 +201,7 @@
         app:layout_constraintEnd_toStartOf="@+id/button150"
         app:layout_constraintHorizontal_bias="0.478"
         app:layout_constraintStart_toEndOf="@+id/button50"
-        app:layout_constraintTop_toBottomOf="@+id/ammountField" />
+        app:layout_constraintTop_toBottomOf="@+id/amountField" />
 
     <Button
         android:id="@+id/button150"
@@ -215,7 +215,7 @@
         android:textColor="#FFFFFF"
         android:textSize="18dp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/ammountField" />
+        app:layout_constraintTop_toBottomOf="@+id/amountField" />
 
     <Button
         android:id="@+id/button250"

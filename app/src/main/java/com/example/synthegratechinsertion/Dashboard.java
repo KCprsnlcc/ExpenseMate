@@ -2,16 +2,20 @@ package com.example.synthegratechinsertion;
 
 import android.annotation.SuppressLint;
 import android.app.Dialog;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.util.Log;
 import android.view.Gravity;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.Window;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
@@ -33,7 +37,7 @@ import java.net.HttpURLConnection;
 import java.net.URL;
 
 public class Dashboard extends AppCompatActivity {
-    String name = "", email = "", type = "",category = "",amount = "";
+    String name = "", email = "", type = "",category = "select",amount = "";
     Button categoryButton, cButton;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -46,9 +50,15 @@ public class Dashboard extends AppCompatActivity {
             email = bundle.getString("email");
             type = bundle.getString("type");
         }
+        Button b50 = findViewById(R.id.button50);
+        Button b100 = findViewById(R.id.button100);
+        Button b150 = findViewById(R.id.button150);
+        Button b250 = findViewById(R.id.button250);
+        Button b300 = findViewById(R.id.button300);
+        Button setButton = findViewById(R.id.setButton);
         categoryButton = findViewById(R.id.a);
         cButton = findViewById(R.id.c);
-        EditText amountField = findViewById(R.id.ammountField);
+        EditText amountField = findViewById(R.id.amountField);
         categoryButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -56,8 +66,7 @@ public class Dashboard extends AppCompatActivity {
             }
         });
         ImageButton aButton = findViewById(R.id.accountButton);
-        cButton.setEnabled(false);
-        ImageButton sButton = findViewById(R.id.statButton);
+        ImageButton hButton = findViewById(R.id.homeButton);
         aButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -71,7 +80,7 @@ public class Dashboard extends AppCompatActivity {
                 overridePendingTransition(0, 0);
             }
         });
-        sButton.setOnClickListener(new View.OnClickListener() {
+        hButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Bundle bundle1 = new Bundle();
@@ -94,7 +103,7 @@ public class Dashboard extends AppCompatActivity {
                     public void run() {
                         HttpURLConnection urlConnection = null;
                         try {
-                            URL url = new URL("http://10.0.2.2/synthegratech/addexpense.php");
+                            URL url = new URL("http://capstone2024.online/snt/addexpense.php");
                             urlConnection = (HttpURLConnection) url.openConnection();
                             urlConnection.setRequestMethod("POST");
                             urlConnection.setDoOutput(true);
@@ -150,6 +159,88 @@ public class Dashboard extends AppCompatActivity {
                 thread.start();
             }
         });
+        b50.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if(category.equals("select")==false){
+                    cButton.setVisibility(View.VISIBLE);
+                    amountField.setText("50");
+                }else{
+                    amountField.setText("50");
+                }
+            }
+        });
+        b100.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if(category.equals("select")==false){
+                    cButton.setVisibility(View.VISIBLE);
+                    amountField.setText("100");
+                }else{
+                    amountField.setText("100");
+                }
+            }
+        });
+        b150.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if(category.equals("select")==false){
+                    cButton.setVisibility(View.VISIBLE);
+                    amountField.setText("150");
+                }else{
+                    amountField.setText("150");
+                }
+            }
+        });
+        b250.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if(category.equals("select")==false){
+                    cButton.setVisibility(View.VISIBLE);
+                    amountField.setText("250");
+                }else{
+                    amountField.setText("250");
+                }
+            }
+        });
+        b300.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if(category.equals("select")==false){
+                    cButton.setVisibility(View.VISIBLE);
+                    amountField.setText("300");
+                }else{
+                    amountField.setText("300");
+                }
+            }
+        });
+        setButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                amountField.requestFocus();
+                InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
+                imm.showSoftInput(amountField, InputMethodManager.SHOW_IMPLICIT);
+                amountField.setSelection(amountField.getText().length());
+            }
+        });
+        amountField.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                if(amountField.getText().equals("0")==false && category.equals("select")==false){
+                    cButton.setVisibility(View.VISIBLE);
+                }else{
+                    cButton.setVisibility(View.GONE);
+                }
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+            }
+        });
     }
 
     public void showDialog() {
@@ -167,7 +258,7 @@ public class Dashboard extends AppCompatActivity {
                 dialog.dismiss();
                 category = "Shopping";
                 categoryButton.setText(category);
-                cButton.setEnabled(true);
+                cButton.setVisibility(View.VISIBLE);
             }
         });
         layoutEntertainment.setOnClickListener(new View.OnClickListener() {
@@ -176,7 +267,7 @@ public class Dashboard extends AppCompatActivity {
                 dialog.dismiss();
                 category = "Entertainment";
                 categoryButton.setText(category);
-                cButton.setEnabled(true);
+                cButton.setVisibility(View.VISIBLE);
             }
         });
 
@@ -186,7 +277,7 @@ public class Dashboard extends AppCompatActivity {
                 dialog.dismiss();
                 category = "Home";
                 categoryButton.setText(category);
-                cButton.setEnabled(true);
+                cButton.setVisibility(View.VISIBLE);
             }
         });
 
@@ -196,7 +287,7 @@ public class Dashboard extends AppCompatActivity {
                 dialog.dismiss();
                 category = "Personal";
                 categoryButton.setText(category);
-                cButton.setEnabled(true);
+                cButton.setVisibility(View.VISIBLE);
             }
         });
         dialog.show();
