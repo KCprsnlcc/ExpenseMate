@@ -1,4 +1,4 @@
-# <p align="center">BE KIND, WE'RE STILL IN BETA 🚧</p>
+# BE KIND, WE'RE STILL IN BETA 🚧
 
 # ExpenseMate: An Expense Tracker App 💰📊
 
